@@ -6,8 +6,8 @@ import 'geo_location.dart';
 
 const _kBaseUrl = 'http://geoname-lookup.ubuntu.com/';
 
-class TimeZoneService {
-  TimeZoneService(this._dio);
+class GeoService {
+  GeoService(this._dio);
 
   final dio.Dio _dio;
   dio.CancelToken? _token;
