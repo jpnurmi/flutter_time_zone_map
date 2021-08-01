@@ -8,6 +8,6 @@ import 'time_zone_service.dart';
 void main() {
   runApp(Provider(
     create: (_) => TimeZoneService(Dio()),
-    child: const MaterialApp(home: TimeZonePage()),
+    child: const MaterialApp(home: Builder(builder: TimeZonePage.create)),
   ));
 }

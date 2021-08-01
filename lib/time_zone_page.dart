@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
+import 'geo_location.dart';
 import 'time_zone_model.dart';
 import 'time_zone_service.dart';
 
@@ -30,6 +32,7 @@ class _TimeZonePageState extends State<TimeZonePage> {
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<TimeZoneModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Time Zone'),
@@ -37,9 +40,21 @@ class _TimeZonePageState extends State<TimeZonePage> {
       body: Padding(
         padding: const EdgeInsets.all(48.0),
         child: Center(
-          child: TextField(
-            autofocus: true,
-            controller: _controller,
+          child: Autocomplete<GeoLocation>(
+            initialValue:
+                TextEditingValue(text: model.selectedLocation?.name ?? ''),
+            displayStringForOption: (location) => location.name ?? '',
+            optionsBuilder: (value) {
+              model.lookup(value.text);
+              return model.locations.where((location) =>
+                  location.name
+                      ?.toLowerCase()
+                      .contains(value.text.toLowerCase()) ==
+                  true);
+            },
+            onSelected: (location) {
+              print('selected ${location.name}');
+            },
           ),
         ),
       ),
