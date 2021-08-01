@@ -1,10 +1,26 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'geo_location.dart';
+part 'geo_service.freezed.dart';
+part 'geo_service.g.dart';
 
 const _kBaseUrl = 'http://geoname-lookup.ubuntu.com/';
+
+@freezed
+class GeoLocation with _$GeoLocation {
+  factory GeoLocation({
+    String? name,
+    String? admin1,
+    String? country,
+    @JsonKey(fromJson: double.tryParse) double? longitude,
+    @JsonKey(fromJson: double.tryParse) double? latitude,
+  }) = _GeoLocation;
+
+  factory GeoLocation.fromJson(Map<String, dynamic> json) =>
+      _$GeoLocationFromJson(json);
+}
 
 class GeoService {
   GeoService(this._dio);

@@ -1,12 +1,17 @@
 import 'package:flutter/foundation.dart';
 
-import 'time_zone_service.dart';
-import 'geo_location.dart';
+import 'geo_service.dart';
+import 'city_service.dart';
 
 class TimeZoneModel extends ChangeNotifier {
-  TimeZoneModel(this._service);
+  TimeZoneModel({
+    required CityService cityService,
+    required GeoService geoService,
+  })  : _cityService = cityService,
+        _geoService = geoService;
 
-  final TimeZoneService _service;
+  final CityService _cityService;
+  final GeoService _geoService;
 
   String? lang;
   String? release;
@@ -31,7 +36,7 @@ class TimeZoneModel extends ChangeNotifier {
   Future<void> lookup(String query) async {
     if (lastQuery == query) return;
     lastQuery = query;
-    return _service
+    return _geoService
         .lookupLocations(query, lang: lang, release: release)
         .then(_updateLocations);
   }

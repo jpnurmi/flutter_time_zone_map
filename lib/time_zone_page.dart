@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:flutter_time_zone_map/city_service.dart';
 import 'package:provider/provider.dart';
 
-import 'geo_location.dart';
+import 'city_service.dart';
+import 'geo_service.dart';
 import 'time_zone_model.dart';
-import 'time_zone_service.dart';
 
 class TimeZonePage extends StatefulWidget {
   const TimeZonePage({Key? key}) : super(key: key);
 
   static Widget create(BuildContext context) {
-    final service = Provider.of<TimeZoneService>(context, listen: false);
+    final cityService = Provider.of<CityService>(context, listen: false);
+    final geoService = Provider.of<GeoService>(context, listen: false);
     return ChangeNotifierProvider(
-      create: (_) => TimeZoneModel(service),
+      create: (_) => TimeZoneModel(
+        cityService: cityService,
+        geoService: geoService,
+      ),
       child: const TimeZonePage(),
     );
   }
