@@ -74,7 +74,6 @@ class _TimeZonePageState extends State<TimeZonePage> {
                   MarkerLayerOptions(
                     markers: [
                       Marker(
-                        //point: LatLng(51.5, -0.09),
                         point: model.selectedPoint,
                         builder: (ctx) =>
                             const Icon(Icons.place, color: Colors.red),
@@ -87,10 +86,6 @@ class _TimeZonePageState extends State<TimeZonePage> {
             Flexible(
               flex: 1,
               child: Autocomplete<GeoLocation>(
-                //initialValue:
-                //TextEditingValue(text: model.selectedLocation?.name ?? ''),
-                //displayStringForOption: (location) =>
-                //'${location.name} (${location.country})',
                 displayStringForOption: geoLocationToString,
                 fieldViewBuilder:
                     (context, controller, focusNode, onSubmitted) {
